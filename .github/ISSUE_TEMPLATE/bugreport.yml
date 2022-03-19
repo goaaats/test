@@ -1,5 +1,5 @@
 name: Bug Report
-description: File a bug report
+description: File a bug report for the launcher itself.
 title: "[Bug]: "
 labels: ["bug", "triage"]
 assignees:
@@ -21,7 +21,7 @@ body:
     id: what-happened
     attributes:
       label: What did you do?
-      description: What were you doing when the problem occurred? Please give us *step by step* directions.
+      description: What were you doing when the problem occurred? Please give us *step by step* directions. You can drop files and images here to attach them.
       placeholder: Tell us what you did!
     validations:
       required: true
@@ -41,7 +41,7 @@ body:
     id: runnerver
     attributes:
       label: Wine/Proton runner version
-      description: If you are using Linux or Mac OS X, what version of Wine/Proton are you using?
+      description: If you are using Linux or Mac OS X, what version of Wine/Proton are you using? Leave this empty if you are on Windows.
       placeholder: e.g. Proton-GE-7.0
     validations:
       required: false
@@ -49,5 +49,5 @@ body:
     id: logs
     attributes:
       label: Relevant log output
-      description: Please copy and paste any relevant log output or error message. You can see this 
+      description: Please copy and paste any relevant log output or error message. You can see this in the error message that popped up or in relevant log files.
       render: shell
