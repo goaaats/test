@@ -1,6 +1,6 @@
 name: Bug Report
 description: File a bug report for the launcher itself.
-title: "[Bug]: "
+title: "[Bug] "
 labels: ["bug", "triage"]
 assignees:
   - octocat
@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report!
+        Thanks for taking the time to fill out this bug report! Please read all prompts on this page carefully and make sure that you have entered the relevant details **before** submitting.
   - type: checkboxes
     id: terms
     attributes:
