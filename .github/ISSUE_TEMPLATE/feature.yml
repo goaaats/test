@@ -1,7 +1,6 @@
 name: Feature Request
 description: If you want to request a feature for the launcher, please do so here.
-title: "[Feature] "
-labels: ["enhancement"]
+labels: ["enhancement", "triage"]
 assignees:
   - octocat
 body:
