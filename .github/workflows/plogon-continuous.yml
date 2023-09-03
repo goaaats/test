@@ -1,0 +1,71 @@
+name: Plogon Daily Continuous
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 19 * * *"
+concurrency: 
+  group: plogon-continuous
+  cancel-in-progress: true
+
+jobs:
+  run-plogon:
+    name: Build all plugins
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout manifests
+      uses: actions/checkout@v3
+      with:
+        repository: goatcorp/DalamudPluginsD17
+        path: manifests
+        ref: ${{ github.event.pull_request.head.sha }}
+
+    - name: Checkout Plogon
+      uses: actions/checkout@v3
+      with:
+        repository: goatcorp/Plogon
+        #ref: V1.0.6
+        path: Plogon
+        
+    - name: Checkout Dist
+      uses: actions/checkout@v3
+      with:
+        repository: goatcorp/PluginDistD17
+        path: output
+        ref: main
+
+    - name: Create required folders
+      run: |
+        mkdir artifacts
+        mkdir work
+        
+    - name: Cache docker image
+      uses: actions/cache@v3
+      env:
+        cache-name: ${{ secrets.EXTENDED_IMAGE_LINK }}
+      with:
+        path: ~/.plogon_cache
+        key: cache-${{ env.cache-name }}
+
+    - name: Run Plogon
+      working-directory: Plogon/Plogon
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        EXTENDED_IMAGE_LINK: ${{ secrets.EXTENDED_IMAGE_LINK }}
+        PLOGON_SECRETS_PK: ${{ secrets.PLOGON_SECRETS_PK }}
+        PLOGON_SECRETS_PK_PASSWORD: ${{ secrets.PLOGON_SECRETS_PK_PASSWORD }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        dotnet run -- \
+        --manifest-folder="${{ github.workspace }}/manifests" \
+        --output-folder="${{ github.workspace }}/output" \
+        --work-folder="${{ github.workspace }}/work" \
+        --static-folder="${{ github.workspace }}/Plogon/Plogon/static" \
+        --artifact-folder="${{ github.workspace }}/artifacts" \
+        --ci --continuous --build-all
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: plugin-artifact
+        path: artifacts
