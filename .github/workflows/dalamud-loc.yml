@@ -1,5 +1,8 @@
 name: Update Dalamud localization files
 
+concurrency: 
+  group: dalamud-loc-sync
+
 permissions:
   pull-requests: write
   contents: write
@@ -41,6 +44,7 @@ jobs:
   synchronize-with-crowdin:
     runs-on: ubuntu-latest
     name: Synchronize with Crowdin
+    needs: export-loc-files
 
     steps:
       - name: Download loc file artifact
