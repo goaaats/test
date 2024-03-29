@@ -47,6 +47,9 @@ jobs:
     needs: export-loc-files
 
     steps:
+      - name: Checkout assets
+        uses: actions/checkout@v4
+    
       - name: Download loc file artifact
         uses: actions/download-artifact@v4
         with:
