@@ -1,11 +1,16 @@
 name: Update Dalamud localization files
 
+permissions:
+  pull-requests: write
+  contents: write
+
 on:
   workflow_dispatch:
   push:
 
 jobs:
   export-loc-files:
+    name: 'Export localization file'
     runs-on: windows-latest
 
     steps:
@@ -32,3 +37,35 @@ jobs:
           name: 'Dalamud_Localizable'
           if-no-files-found: error
           path: 'Dalamud/tools/Dalamud.LocExporter/Dalamud_Localizable.json'
+
+  synchronize-with-crowdin:
+    runs-on: ubuntu-latest
+    name: Synchronize with Crowdin
+
+    steps:
+      - name: Download loc file artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: 'Dalamud_Localizable'
+          path: 'loc_for_upload'
+
+      - name: Upload to Crowdin
+        uses: crowdin/github-action@v1
+        with:
+          upload_sources: true
+          upload_translations: false
+          download_translations: true
+          
+          # We should put this to true when every language has someone that can approve
+          export_only_approved: false
+          
+          push_translations: true
+          commit_message: 'Update localization'
+          create_pull_request: true
+          pull_request_title: 'Update localization'
+          pull_request_body: 'Update localization with latest translations from crowdin'
+          config: '.github/crowdin.yml'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
