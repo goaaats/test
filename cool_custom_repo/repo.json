@@ -18,9 +18,9 @@
     "LoadPriority": 0,
     "Punchline": "Now we're talking",
     "AcceptsFeedback": true,
-    "DownloadLinkInstall": "https://raw.githubusercontent.com/goaaats/test/cool_custom_repo/latest.zip",
-    "DownloadLinkTesting": "https://raw.githubusercontent.com/goaaats/test/cool_custom_repo/latest.zip",
-    "DownloadLinkUpdate": "https://raw.githubusercontent.com/goaaats/test/cool_custom_repo/latest.zip",
-    "IconUrl": "https://raw.githubusercontent.com/goaaats/test/cool_custom_repo/icon.png"
+    "DownloadLinkInstall": "https://raw.githubusercontent.com/goaaats/test/main/cool_custom_repo/latest.zip",
+    "DownloadLinkTesting": "https://raw.githubusercontent.com/goaaats/test/main/cool_custom_repo/latest.zip",
+    "DownloadLinkUpdate": "https://raw.githubusercontent.com/goaaats/test/main/cool_custom_repo/latest.zip",
+    "IconUrl": "https://raw.githubusercontent.com/goaaats/test/main/cool_custom_repo/icon.png"
   }
 ]
