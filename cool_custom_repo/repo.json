@@ -1,0 +1,26 @@
+[
+  {
+    "Author": "goat",
+    "Name": "Wotsit: Definitive Edition",
+    "InternalName": "Dalamud.FindEverything",
+    "AssemblyVersion": "1.0.5.1",
+    "Description": "Experience new heights of Wotsit in this reimagining of the most useful and critically acclaimed Dalamud plugin.",
+    "ApplicableVersion": "any",
+    "Tags": [
+      "find",
+      "teleport",
+      "wiki"
+    ],
+    "DalamudApiLevel": 9,
+    "LoadRequiredState": 0,
+    "LoadSync": false,
+    "CanUnloadAsync": false,
+    "LoadPriority": 0,
+    "Punchline": "Now we're talking",
+    "AcceptsFeedback": true,
+    "DownloadLinkInstall": "https://raw.githubusercontent.com/goaaats/test/cool_custom_repo/latest.zip",
+    "DownloadLinkTesting": "https://raw.githubusercontent.com/goaaats/test/cool_custom_repo/latest.zip",
+    "DownloadLinkUpdate": "https://raw.githubusercontent.com/goaaats/test/cool_custom_repo/latest.zip",
+    "IconUrl": "https://raw.githubusercontent.com/goaaats/test/cool_custom_repo/icon.png"
+  }
+]
