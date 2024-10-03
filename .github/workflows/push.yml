@@ -21,18 +21,29 @@ jobs:
                 repo: context.repo.repo,
               })
             ).data[0];
-            
-            if (!pr.requested_reviewers || pr.requested_reviewers.length === 0) {
-              throw new Error("Pull request has no reviewers.");
+      
+            const reviews = (
+              await github.rest.pulls.listReviews({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+              })
+            ).data;
+      
+            // Filter reviews for approved ones
+            const approvedReviews = reviews.filter(review => review.state === 'APPROVED');
+      
+            if (approvedReviews.length === 0) {
+              throw new Error("Pull request has no approved reviews.");
             }
       
             return {
               number: pr.number,
               title: pr.title,
-              first_reviewer: pr.requested_reviewers[0].login
+              first_approved_reviewer: approvedReviews[0].user.login
             };
       - name: Pull Request data
         run: |
           echo 'PR Number: ${{ steps.get_pr_data.outputs.result.number }}'
           echo 'PR Title: ${{ steps.get_pr_data.outputs.result.title }}'
-          echo 'First Reviewer: ${{ steps.get_pr_data.outputs.result.first_reviewer }}'
+          echo 'First Approved Reviewer: ${{ steps.get_pr_data.outputs.result.first_approved_reviewer }}'
