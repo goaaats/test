@@ -1,0 +1,38 @@
+name: Deployment
+on: [push, workflow_dispatch]
+concurrency: 
+  group: plogon-deploy
+  cancel-in-progress: true
+
+jobs:
+  run-plogon:
+    name: Build Plugins
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        id: get_pr_data
+        with:
+          script: |
+            const pr = (
+              await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                commit_sha: context.sha,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+              })
+            ).data[0];
+            
+            if (!pr.requested_reviewers || pr.requested_reviewers.length === 0) {
+              throw new Error("Pull request has no reviewers.");
+            }
+      
+            return {
+              number: pr.number,
+              title: pr.title,
+              first_reviewer: pr.requested_reviewers[0].login
+            };
+      - name: Pull Request data
+        run: |
+          echo 'PR Number: ${{ steps.get_pr_data.outputs.result.number }}'
+          echo 'PR Title: ${{ steps.get_pr_data.outputs.result.title }}'
+          echo 'First Reviewer: ${{ steps.get_pr_data.outputs.result.first_reviewer }}'
