@@ -37,13 +37,15 @@ jobs:
               throw new Error("Pull request has no approved reviews.");
             }
       
+            // Setting the output explicitly
             return {
               number: pr.number,
               title: pr.title,
               first_approved_reviewer: approvedReviews[0].user.login
             };
+          outputs: result
       - name: Pull Request data
         run: |
-          echo 'PR Number: ${{ steps.get_pr_data.outputs.result.number }}'
-          echo 'PR Title: ${{ steps.get_pr_data.outputs.result.title }}'
-          echo 'First Approved Reviewer: ${{ steps.get_pr_data.outputs.result.first_approved_reviewer }}'
+          echo 'PR Number: ${{ fromJson(steps.get_pr_data.outputs.result).number }}'
+          echo 'PR Title: ${{ fromJson(steps.get_pr_data.outputs.result).title }}'
+          echo 'First Approved Reviewer: ${{ fromJson(steps.get_pr_data.outputs.result).first_approved_reviewer }}'
