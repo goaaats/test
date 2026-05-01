@@ -3,7 +3,7 @@
     "Author": "goat",
     "Name": "Wotsit: Definitive Edition",
     "InternalName": "Dalamud.FindEverything",
-    "AssemblyVersion": "1.0.5.1",
+    "AssemblyVersion": "1.1.2.2",
     "Description": "Experience new heights of Wotsit in this reimagining of the most useful and critically acclaimed Dalamud plugin.",
     "ApplicableVersion": "any",
     "Tags": [
@@ -11,7 +11,7 @@
       "teleport",
       "wiki"
     ],
-    "DalamudApiLevel": 9,
+    "DalamudApiLevel": 15,
     "LoadRequiredState": 0,
     "LoadSync": false,
     "CanUnloadAsync": false,
